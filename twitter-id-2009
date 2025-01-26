@@ -1,0 +1,5 @@
+SELECT * FROM twitch_sessions t 
+JOIN twitch_sessions s 
+ON t.user_id = s.user_id
+WHERE t.session_type = 'streamer' and s.session_type = 'viewer'
+ORDER BY t.user_id;
