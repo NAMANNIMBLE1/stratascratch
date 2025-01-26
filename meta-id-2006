@@ -1,0 +1,16 @@
+WITH cte AS (
+    SELECT 
+        EXTRACT(MONTH FROM post_date) AS month,
+        EXTRACT(DAY FROM post_date) AS day
+    FROM 
+        facebook_posts
+)
+SELECT 
+    day, 
+    month, 
+    count(*) AS total_posts
+FROM 
+    cte
+GROUP BY 
+    day, 
+    month;
