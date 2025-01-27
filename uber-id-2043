@@ -1,0 +1,9 @@
+-- return employees without annual review 
+-- return first name last name , hiring date , and termination date , list them by recently hired first 
+
+
+select a.first_name , a.last_name , a.hire_date , a.termination_date  from uber_employees a 
+left join uber_annual_review b
+on a.id = b.emp_id 
+where b.review_date is NULL
+order by a.hire_date;
