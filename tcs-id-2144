@@ -1,0 +1,9 @@
+-- age between 30 and 40 
+-- customer satisfaction average 
+
+
+SELECT a.class , ROUND(AVG(a.satisfaction))FROM survey_results a   
+JOIN  loyalty_customers b  
+ON a.cust_id = b.cust_id  
+WHERE b.age BETWEEN 30 AND 40
+GROUP BY a.class;
