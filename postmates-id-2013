@@ -1,0 +1,8 @@
+-- how many customers placed the order 
+-- what is the average order amaournt 
+
+SELECT DISTINCT customer_id , COUNT(customer_id) as total_orders ,  
+AVG(amount) as avg_buy_price
+FROM postmates_orders
+GROUP BY customer_id
+ORDER BY avg_buy_price DESC;
