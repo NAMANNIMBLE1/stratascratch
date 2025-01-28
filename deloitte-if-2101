@@ -1,0 +1,12 @@
+-- make combinations of all number and find max of the permutation 
+
+WITH cte AS (
+  SELECT a.number AS first_number, b.number AS second_number
+  FROM deloitte_numbers a
+  JOIN deloitte_numbers b
+)
+
+SELECT 
+  first_number, second_number, 
+  GREATEST(first_number, second_number) AS max_value
+FROM cte;
