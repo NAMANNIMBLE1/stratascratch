@@ -1,0 +1,14 @@
+-- calculate thee avegrage duration (secs)
+-- group by with session type 
+
+WITH cte as (
+    SELECT session_type ,
+    -- EXTRACT(SECOND from session_start) as starting_time,
+    -- EXTRACT(SECOND from session_end)as ending_time # wrong cuz olny extract seconds part
+    TIMESTAMPDIFF(SECOND , session_start , session_end) as duration_seconds
+    FROM twitch_sessions
+)
+
+SELECT session_type , AVG(duration_seconds)
+from cte
+GROUP BY session_type;
