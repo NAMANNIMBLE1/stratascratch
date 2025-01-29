@@ -1,0 +1,14 @@
+-- unique user per month 
+
+with cte as ( 
+    SELECT
+        DISTINCT user_id,
+        client_id,
+        EXTRACT(MONTH from time_id) as month,
+        count(DISTINCT user_id) as users_num
+    FROM fact_events
+    GROUP BY client_id , EXTRACT(MONTH from time_id)
+)
+
+SELECT DISTINCT client_id , month ,  users_num
+FROM cte;
