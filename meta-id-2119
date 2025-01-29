@@ -1,0 +1,20 @@
+-- 5 most lucrative products 
+-- in terms of total revenue 
+-- (from January to June)
+
+WITH cte as (
+    SELECT 
+        product_id , 
+        SUM(cost_in_dollars*units_sold) as revenue,
+        EXTRACT(MONTH FROM date) as month,
+        EXTRACT(YEAR FROM date) as year,
+        RANK() OVER(
+            ORDER BY SUM(cost_in_dollars*units_sold) DESC
+        ) as revenue_rank 
+    FROM online_orders
+    GROUP BY product_id
+)
+
+SELECT product_id , revenue
+FROM cte
+WHERE month BETWEEN 1 and 6 AND year = 2022 AND revenue_rank <= 5;
