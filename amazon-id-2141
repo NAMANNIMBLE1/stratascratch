@@ -1,0 +1,17 @@
+-- to find latest logins 
+-- first find the max login time which is the most recent one 
+-- niw join this latest timestamp with normal login and check for the 
+-- employ id where login time is latest and then return all the infor related to that 
+
+with cte as (
+    SELECT
+        worker_id,
+        MAX(login_timestamp) as recent_logins
+    FROM worker_logins 
+    GROUP BY worker_id
+)
+
+SELECT wl.* from worker_logins wl
+JOIN  cte wl_2 
+ON wl_2.recent_logins = wl.login_timestamp 
+AND wl.worker_id = wl_2.worker_id;
