@@ -1,0 +1,12 @@
+-- groupby platforms 
+-- count unique / distinct users 
+-- output the platform with number of users (count)
+
+WITH cte as (
+    SELECT  DISTINCT user_id , platform , 
+    count(user_id) as number_of_users
+    FROM user_sessions
+    GROUP BY platform 
+)
+
+SELECT platform , number_of_users from cte;
