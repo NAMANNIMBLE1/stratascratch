@@ -1,0 +1,11 @@
+-- return list of users 
+-- status = 'free'
+-- didnt make calls 
+
+
+SELECT * from rc_calls a 
+LEFT JOIN rc_users b  
+ON a.user_id = b.user_id 
+WHERE b.status = 'free'
+AND
+a.call_id = b.company_id;
