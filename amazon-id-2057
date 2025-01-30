@@ -1,0 +1,18 @@
+-- find weight 
+-- for each shipment 's earliest date 
+-- return shipment id and weight
+
+WITH cte as (
+    SELECT
+        shipment_id , shipment_date , weight,
+        RANK() OVER(
+            PARTITION BY shipment_id
+            ORDER BY shipment_date
+            ASC
+        ) as order_time_ranking
+        FROM amazon_shipment
+)
+
+SELECT  shipment_id , weight 
+FROM cte
+WHERE order_time_ranking = 1;
