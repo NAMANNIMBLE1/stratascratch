@@ -3,23 +3,21 @@
 -- order by total_sales desc 
 -- output product categories , no of transzations , total sales 
 
-WITH cte as (
+WITH cte AS (
     SELECT 
-        DISTINCT transaction_id , product_category , 
-        COUNT(transaction_id) as no_of_transactions,
-        SUM(sales) as total_sales,
-        EXTRACT(YEAR from transaction_date) as year
-    FROM wfm_transactions a 
+        b.product_category,
+        a.transaction_id,
+        a.sales
+    FROM wfm_transactions a
     LEFT JOIN wfm_products b
     ON a.product_id = b.product_id
-    GROUP BY product_category 
-    ORDER BY SUM(sales)
-    DESC
+    WHERE EXTRACT(YEAR FROM a.transaction_date) = 2017
 )
 
-SELECT DISTINCT 
-no_of_transactions,
-product_category,
-total_sales
-from cte
-where year = 2017;
+SELECT 
+    product_category,
+    COUNT(DISTINCT transaction_id) AS no_of_transactions,
+    SUM(sales) AS total_sales
+FROM cte
+GROUP BY product_category
+ORDER BY total_sales DESC;
