@@ -1,0 +1,10 @@
+-- query list of products with no sales 
+-- output the id and market name of products 
+
+
+SELECT a.order_id , b.market_name
+FROM fct_customer_sales a
+LEFT JOIN dim_product b 
+ON a.prod_sku_id = b.prod_sku_id
+WHERE a.order_id = NULL;
+
