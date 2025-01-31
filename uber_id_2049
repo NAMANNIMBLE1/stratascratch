@@ -1,0 +1,10 @@
+-- calculate count of orders for each status of service 
+-- output service name , status of order , no of orders 
+
+SELECT 
+    service_name , 
+    status_of_order,
+    number_of_orders
+FROM uber_orders
+GROUP BY status_of_order , service_name
+ORDER BY service_name;
