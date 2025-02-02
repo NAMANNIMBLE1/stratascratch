@@ -1,0 +1,9 @@
+-- average salary for each level of education 
+
+SELECT 
+    education,
+    AVG(salary) as average_salary
+FROM google_salaries
+GROUP BY education
+ORDER BY average_salary
+DESC;
