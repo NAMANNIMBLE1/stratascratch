@@ -1,0 +1,21 @@
+-- top 3 user with most sessions 
+-- stremain session value > viewing 
+-- return user_id , no of streaming sessions (count) , count(viewing)
+
+WITH cte AS (
+    SELECT 
+        user_id, 
+        COUNT(CASE WHEN session_type = 'streamer' THEN 1 ELSE NULL END) AS stream_count,
+        COUNT(CASE WHEN session_type = 'viewer' THEN 1 ELSE NULL END) AS view_count
+    FROM twitch_sessions
+    GROUP BY user_id
+)
+
+SELECT 
+    user_id, 
+    stream_count, 
+    view_count
+FROM cte
+WHERE stream_count > view_count
+ORDER BY stream_count DESC
+LIMIT 3;
