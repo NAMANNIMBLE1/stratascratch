@@ -1,0 +1,15 @@
+-- most active users for january 2021 for each account 
+-- output account id , monthly count of accounts 
+
+WITH cte as (
+    SELECT
+        account_id , 
+        COUNT(account_id) as monthly_count
+    FROM sf_events
+    WHERE MONTH(date)= 1 AND
+    YEAR(date) = 2021
+    GROUP BY account_id
+    ORDER BY monthly_count DESC
+)
+
+SELECT * FROM cte;
