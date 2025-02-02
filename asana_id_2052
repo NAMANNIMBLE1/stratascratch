@@ -1,0 +1,31 @@
+-- growth rate for time (dec 2020 -> jan 2021) for each account
+-- growth rate = no_of_users (january 2021 ) / no_of_users(dec 2020)
+-- return accout id and growth rate 
+WITH growth_jan as (
+    SELECT
+        account_id,
+        COUNT(account_id) as jan_count
+    FROM sf_events
+    WHERE MONTH(date) = 1 AND YEAR(date) = 2021
+    GROUP BY account_id
+),
+
+growth_dec as (
+    SELECT
+        account_id,
+        COUNT(account_id) as dec_count
+    FROM sf_events
+    WHERE MONTH(date) = 12 AND YEAR(date) = 2020
+    GROUP BY account_id 
+)
+
+
+SELECT
+    a.account_id,
+    ((b.jan_count) / (a.dec_count)) as growth_rate 
+FROM growth_dec a
+LEFT JOIN  growth_jan b 
+ON
+a.account_id = b.account_id 
+ORDER BY growth_rate
+DESC;
