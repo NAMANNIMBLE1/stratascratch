@@ -1,0 +1,6 @@
+-- find serch detail where property_type = aparatment 
+-- accomodation suitable for one person 
+
+SELECT * FROM airbnb_search_details
+WHERE amenities = '1'
+AND property_type	= 'Apartment';
