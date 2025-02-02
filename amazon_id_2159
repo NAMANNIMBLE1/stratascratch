@@ -1,0 +1,17 @@
+-- return signup ids and transaction start date in april or may 
+-- return unique id 
+
+with cte as (
+    SELECT
+        transaction_id ,
+        transaction_start_date
+    FROM transactions
+    WHERE MONTH(transaction_start_date) = 5 
+        or MONTH(transaction_start_date) = 6
+)
+
+SELECT DISTINCT transaction_id ,transaction_start_date 
+FROM cte
+ORDER BY transaction_start_date;
+
+    
