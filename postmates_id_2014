@@ -1,0 +1,16 @@
+-- which hour has highest orders volume per day 
+-- return hour and average order volumne 
+
+WITH cte AS (
+    SELECT 
+        EXTRACT(DAY FROM order_timestamp_utc) AS day,
+        EXTRACT(HOUR FROM order_timestamp_utc) AS hour,
+        COUNT(*) AS order_count
+    FROM postmates_orders
+    GROUP BY day, hour
+)
+SELECT hour, AVG(order_count) AS avg_order_volume
+FROM cte
+GROUP BY hour
+ORDER BY avg_order_volume DESC
+LIMIT 1;
