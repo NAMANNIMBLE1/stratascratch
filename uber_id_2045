@@ -1,0 +1,16 @@
+WITH hiring_gaps AS (
+    SELECT
+        DATEDIFF(hire_date, LAG(hire_date) OVER (ORDER BY hire_date ASC)) AS hire_gap
+    FROM uber_employees
+    WHERE hire_date IS NOT NULL
+),
+termination_gaps AS (
+    SELECT
+        DATEDIFF(termination_date, LAG(termination_date) OVER (ORDER BY termination_date ASC)) AS termination_gap
+    FROM uber_employees
+    WHERE termination_date IS NOT NULL
+)
+
+SELECT 
+    (SELECT MAX(hire_gap) FROM hiring_gaps) AS longest_period_without_hiring,
+    (SELECT MAX(termination_gap) FROM termination_gaps) AS longest_period_without_termination;
