@@ -1,0 +1,14 @@
+-- return user_id of all users 
+-- that made atleast one refinance submission and in school submission 
+
+WITH cte AS(
+    SELECT
+        user_id ,
+        COUNT(CASE WHEN type = 'Refinance' THEN 1 ELSE 0 END) as refinance_count,
+        COUNT(CASE WHEN type = 'InSchool' THEN 1 ELSE 0 END) as inschool_count
+    FROM loans
+    GROUP BY user_id 
+) 
+
+SELECT user_id FROM cte
+WHERE refinance_count >= 1 AND  inschool_count >= 1;
