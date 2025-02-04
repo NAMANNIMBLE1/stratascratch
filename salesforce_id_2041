@@ -1,0 +1,10 @@
+-- calculate total sales across countries they do buisness in 
+-- 2 table one with record of sales and other is currency excahnge rate info 
+-- return total sales per quarter , for first 2 quarters in 2020 and report sales in usd 
+
+SELECT SUM(b.sales_amount*a.exchange_rate) as total_sales, QUARTER(a.date) as quarter FROM sf_exchange_rate a
+JOIN sf_sales_amount b ON a.source_currency = b.currency AND a.date = b.sales_date
+WHERE QUARTER(a.date) BETWEEN 1 AND 2 AND YEAR(a.date) = 2020
+GROUP BY QUARTER(a.date) 
+ORDER BY SUM(b.sales_amount*a.exchange_rate)
+
