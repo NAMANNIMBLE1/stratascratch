@@ -1,0 +1,8 @@
+SELECT
+    (COUNT(p.promotion_id) / COUNT(*)) * 100.0 
+FROM
+    online_orders o
+LEFT JOIN
+    online_promotions p
+ON
+    o.promotion_id = p.promotion_id;
