@@ -1,0 +1,13 @@
+SELECT 
+    a.client_id, 
+    COUNT(DISTINCT a.user_id) AS exclusive_users_count
+FROM 
+    fact_events a
+LEFT JOIN 
+    fact_events b 
+ON 
+    a.user_id = b.user_id AND a.client_id <> b.client_id
+WHERE 
+    b.user_id IS NULL
+GROUP BY 
+    a.client_id;
