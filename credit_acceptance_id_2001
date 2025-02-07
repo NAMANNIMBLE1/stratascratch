@@ -1,0 +1,19 @@
+-- return rate type loan id loan balance and column 
+-- show % od loan contribute to total balance -- along the same rate type 
+
+-- we have to group by by the rate type 
+
+with rate_type_total AS (
+    SELECT
+        rate_type , SUM(balance) as total_balance
+    FROM submissions
+    GROUP BY rate_type
+)
+
+SELECT a.rate_type , a.loan_id , a.balance , 
+       ROUND((a.balance/b.total_balance)*100, 2) as balance_percentage
+FROM submissions a 
+JOIN rate_type_total b 
+ON
+a.rate_type = b.rate_type 
+ORDER BY a.loan_id;
