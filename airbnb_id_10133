@@ -1,0 +1,4 @@
+SELECT 
+    COUNT(DISTINCT CASE WHEN ts_accepted_at IS NOT NULL THEN id_guest END) / COUNT(DISTINCT id_guest) AS acceptance_rate
+FROM 
+    airbnb_contacts;
